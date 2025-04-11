@@ -153,14 +153,14 @@ const MainFeature = () => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="card overflow-visible shadow-modern dark:shadow-modern-dark"
+      className="card overflow-visible"
     >
-      <div className="p-5 border-b border-surface-200/70 dark:border-surface-700/70">
+      <div className="p-5 border-b border-surface-200/40 dark:border-surface-700/40">
         <h2 className="text-lg font-semibold flex items-center">
           <div className="mr-3 p-2 bg-primary/10 dark:bg-primary/20 rounded-lg text-primary dark:text-primary-light">
             <Briefcase size={20} />
           </div>
-          <span className="text-gradient">Create New Deal</span>
+          <span className="bg-gradient-to-r from-primary to-secondary-dark bg-clip-text text-transparent">Create New Deal</span>
         </h2>
         <p className="text-sm text-surface-500 dark:text-surface-400 mt-1 ml-11">
           Add a new sales opportunity to your pipeline
@@ -174,7 +174,7 @@ const MainFeature = () => {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="mb-6 p-4 bg-green-100/70 dark:bg-green-900/30 text-green-800 dark:text-green-400 rounded-xl flex items-center backdrop-blur-sm border border-green-200/50 dark:border-green-800/30"
+              className="mb-6 p-4 bg-green-100/80 dark:bg-green-900/40 text-green-800 dark:text-green-400 rounded-xl flex items-center backdrop-blur-sm border border-green-200/70 dark:border-green-800/40 shadow-sm"
             >
               <div className="p-1 bg-green-500/20 dark:bg-green-500/30 rounded-lg mr-3">
                 <Check size={18} />
@@ -188,7 +188,7 @@ const MainFeature = () => {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="mb-6 p-4 bg-red-100/70 dark:bg-red-900/30 text-red-800 dark:text-red-400 rounded-xl flex items-center backdrop-blur-sm border border-red-200/50 dark:border-red-800/30"
+              className="mb-6 p-4 bg-red-100/80 dark:bg-red-900/40 text-red-800 dark:text-red-400 rounded-xl flex items-center backdrop-blur-sm border border-red-200/70 dark:border-red-800/40 shadow-sm"
             >
               <div className="p-1 bg-red-500/20 dark:bg-red-500/30 rounded-lg mr-3">
                 <AlertCircle size={18} />
@@ -283,7 +283,7 @@ const MainFeature = () => {
                 <button
                   type="button"
                   onClick={() => setStagesOpen(!stagesOpen)}
-                  className="input w-full text-left flex items-center justify-between group"
+                  className="input w-full text-left flex items-center justify-between group hover:shadow-sm"
                 >
                   <span>{dealForm.stage}</span>
                   <span className="text-surface-400 group-hover:text-primary dark:group-hover:text-primary-light transition-colors">
@@ -298,7 +298,7 @@ const MainFeature = () => {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -10 }}
                       transition={{ duration: 0.2 }}
-                      className="absolute z-10 mt-1 w-full bg-white dark:bg-surface-800 border border-surface-200 dark:border-surface-700 rounded-xl shadow-xl overflow-hidden backdrop-blur-sm"
+                      className="absolute z-10 mt-1 w-full bg-white/90 dark:bg-surface-800/90 border border-surface-200/50 dark:border-surface-700/50 rounded-xl shadow-float overflow-hidden backdrop-blur-md"
                     >
                       {dealStages.map((stage, index) => (
                         <motion.button
@@ -311,7 +311,7 @@ const MainFeature = () => {
                             setDealForm({ ...dealForm, stage });
                             setStagesOpen(false);
                           }}
-                          className={`w-full text-left px-4 py-2.5 hover:bg-surface-100 dark:hover:bg-surface-700 transition-colors ${
+                          className={`w-full text-left px-4 py-2.5 hover:bg-surface-100/70 dark:hover:bg-surface-700/70 transition-colors ${
                             dealForm.stage === stage ? 'bg-primary/10 dark:bg-primary/20 text-primary dark:text-primary-light' : ''
                           }`}
                         >

@@ -63,7 +63,7 @@ const Home = () => {
     <div className="space-y-6">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold">Welcome back, Alex</h1>
+          <h1 className="text-2xl font-bold bg-gradient-to-r from-surface-800 to-surface-600 dark:from-surface-100 dark:to-surface-300 bg-clip-text text-transparent">Welcome back, Alex</h1>
           <p className="text-surface-600 dark:text-surface-400 mt-1">Here's what's happening with your customers today</p>
         </div>
         
@@ -72,15 +72,19 @@ const Home = () => {
             <input 
               type="text" 
               placeholder="Search..." 
-              className="input pl-10 pr-4 py-2 w-full md:w-64"
+              className="input pl-10 pr-4 py-2 w-full md:w-64 hover:shadow-sm focus:shadow-md transition-shadow duration-300"
             />
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-surface-400" />
           </div>
           
-          <button className="btn btn-primary flex items-center space-x-2">
+          <motion.button 
+            className="btn btn-primary flex items-center space-x-2"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
             <Plus size={18} />
             <span>New Contact</span>
-          </button>
+          </motion.button>
         </div>
       </div>
       
@@ -92,7 +96,7 @@ const Home = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3, delay: index * 0.1 }}
-            className="card p-5"
+            className="stat-card"
           >
             <div className="flex justify-between items-start">
               <div>
@@ -105,7 +109,7 @@ const Home = () => {
                   <span className="text-surface-500 dark:text-surface-400 ml-1">vs last month</span>
                 </div>
               </div>
-              <div className={`h-10 w-10 rounded-lg bg-gradient-to-br ${stat.color} flex items-center justify-center`}>
+              <div className={`h-12 w-12 rounded-xl bg-gradient-to-br ${stat.color} flex items-center justify-center shadow-md`}>
                 <span className="text-white">{stat.icon}</span>
               </div>
             </div>
@@ -114,10 +118,10 @@ const Home = () => {
       </div>
       
       {/* Tabs */}
-      <div className="border-b border-surface-200 dark:border-surface-700">
+      <div className="border-b border-surface-200/50 dark:border-surface-700/50">
         <div className="flex space-x-6">
           {['dashboard', 'contacts', 'deals', 'tasks'].map((tab) => (
-            <button
+            <motion.button
               key={tab}
               onClick={() => setActiveTab(tab)}
               className={`py-3 px-1 font-medium text-sm border-b-2 transition-colors ${
@@ -125,9 +129,11 @@ const Home = () => {
                   ? 'border-primary text-primary dark:border-primary-light dark:text-primary-light' 
                   : 'border-transparent text-surface-600 dark:text-surface-400 hover:text-surface-900 dark:hover:text-surface-100'
               }`}
+              whileHover={activeTab !== tab ? { y: -2 } : {}}
+              whileTap={{ scale: 0.97 }}
             >
               {tab.charAt(0).toUpperCase() + tab.slice(1)}
-            </button>
+            </motion.button>
           ))}
         </div>
       </div>
@@ -136,30 +142,41 @@ const Home = () => {
         {/* Recent Contacts */}
         <div className="lg:col-span-1">
           <div className="card">
-            <div className="p-4 border-b border-surface-200 dark:border-surface-700 flex items-center justify-between">
-              <h3 className="font-semibold">Recent Contacts</h3>
-              <button className="text-primary dark:text-primary-light text-sm font-medium flex items-center">
+            <div className="p-4 border-b border-surface-200/40 dark:border-surface-700/40 flex items-center justify-between">
+              <h3 className="font-semibold bg-gradient-to-r from-surface-800 to-surface-600 dark:from-surface-100 dark:to-surface-300 bg-clip-text text-transparent">Recent Contacts</h3>
+              <motion.button 
+                className="text-primary dark:text-primary-light text-sm font-medium flex items-center hover-glow"
+                whileHover={{ x: 3 }}
+                whileTap={{ x: 0 }}
+              >
                 <span>View All</span>
                 <ArrowUpRight size={14} className="ml-1" />
-              </button>
+              </motion.button>
             </div>
             
-            <div className="divide-y divide-surface-200 dark:divide-surface-700">
-              {recentContacts.map((contact) => (
-                <div key={contact.id} className="p-4 hover:bg-surface-50 dark:hover:bg-surface-700/50 transition-colors">
+            <div className="divide-y divide-surface-200/40 dark:divide-surface-700/40">
+              {recentContacts.map((contact, index) => (
+                <motion.div 
+                  key={contact.id} 
+                  className="p-4 hover:bg-surface-50/70 dark:hover:bg-surface-700/40 transition-colors cursor-pointer"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  whileHover={{ x: 2 }}
+                >
                   <div className="flex justify-between">
                     <div>
                       <h4 className="font-medium">{contact.name}</h4>
                       <p className="text-sm text-surface-500 dark:text-surface-400">{contact.company}</p>
                     </div>
                     <div>
-                      <span className={`text-xs px-2 py-1 rounded-full ${
+                      <span className={
                         contact.status === 'Customer' 
-                          ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400' 
+                          ? 'badge badge-success' 
                           : contact.status === 'Lead'
-                          ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400'
-                          : 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400'
-                      }`}>
+                          ? 'badge badge-info'
+                          : 'badge badge-warning'
+                      }>
                         {contact.status}
                       </span>
                     </div>
@@ -168,7 +185,7 @@ const Home = () => {
                     <p className="text-xs text-surface-500 dark:text-surface-400">{contact.email}</p>
                     <p className="text-xs text-surface-500 dark:text-surface-400">Last contact: {contact.lastContact}</p>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>

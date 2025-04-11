@@ -42,7 +42,11 @@ export default {
         'neu-dark': '5px 5px 15px rgba(0, 0, 0, 0.3), -5px -5px 15px rgba(255, 255, 255, 0.05)',
         'glass': '0 8px 32px 0 rgba(31, 38, 135, 0.07)',
         'modern': '0 10px 30px -15px rgba(0, 0, 0, 0.1)',
-        'modern-dark': '0 10px 30px -15px rgba(0, 0, 0, 0.7)'
+        'modern-dark': '0 10px 30px -15px rgba(0, 0, 0, 0.7)',
+        'elegant': '0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.01)',
+        'float': '0 10px 25px -5px rgba(0, 0, 0, 0.08)',
+        'glow': '0 0 15px 1px rgba(80, 70, 229, 0.4)',
+        'glow-dark': '0 0 15px 1px rgba(129, 140, 248, 0.4)'
       },
       borderRadius: {
         'xl': '0.75rem',
