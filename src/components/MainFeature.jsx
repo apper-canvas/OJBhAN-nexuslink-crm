@@ -149,27 +149,36 @@ const MainFeature = () => {
   }, [stagesOpen]);
 
   return (
-    <div className="card overflow-visible">
-      <div className="p-4 border-b border-surface-200 dark:border-surface-700">
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="card overflow-visible shadow-modern dark:shadow-modern-dark"
+    >
+      <div className="p-5 border-b border-surface-200/70 dark:border-surface-700/70">
         <h2 className="text-lg font-semibold flex items-center">
-          <Briefcase size={20} className="mr-2 text-primary dark:text-primary-light" />
-          Create New Deal
+          <div className="mr-3 p-2 bg-primary/10 dark:bg-primary/20 rounded-lg text-primary dark:text-primary-light">
+            <Briefcase size={20} />
+          </div>
+          <span className="text-gradient">Create New Deal</span>
         </h2>
-        <p className="text-sm text-surface-500 dark:text-surface-400 mt-1">
+        <p className="text-sm text-surface-500 dark:text-surface-400 mt-1 ml-11">
           Add a new sales opportunity to your pipeline
         </p>
       </div>
       
-      <form onSubmit={handleSubmit} className="p-5">
+      <form onSubmit={handleSubmit} className="p-6">
         <AnimatePresence>
           {submitSuccess && (
             <motion.div
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="mb-4 p-3 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400 rounded-lg flex items-center"
+              className="mb-6 p-4 bg-green-100/70 dark:bg-green-900/30 text-green-800 dark:text-green-400 rounded-xl flex items-center backdrop-blur-sm border border-green-200/50 dark:border-green-800/30"
             >
-              <Check size={18} className="mr-2" />
+              <div className="p-1 bg-green-500/20 dark:bg-green-500/30 rounded-lg mr-3">
+                <Check size={18} />
+              </div>
               <span>Deal successfully created!</span>
             </motion.div>
           )}
@@ -179,18 +188,24 @@ const MainFeature = () => {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="mb-4 p-3 bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-400 rounded-lg flex items-center"
+              className="mb-6 p-4 bg-red-100/70 dark:bg-red-900/30 text-red-800 dark:text-red-400 rounded-xl flex items-center backdrop-blur-sm border border-red-200/50 dark:border-red-800/30"
             >
-              <AlertCircle size={18} className="mr-2" />
+              <div className="p-1 bg-red-500/20 dark:bg-red-500/30 rounded-lg mr-3">
+                <AlertCircle size={18} />
+              </div>
               <span>There was an error creating the deal. Please try again.</span>
             </motion.div>
           )}
         </AnimatePresence>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Deal Information */}
-          <div className="space-y-4">
-            <div>
+          <div className="space-y-5">
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+            >
               <label htmlFor="title" className="label">Deal Title*</label>
               <div className="relative">
                 <input
@@ -199,19 +214,23 @@ const MainFeature = () => {
                   name="title"
                   value={dealForm.title}
                   onChange={handleChange}
-                  className={`input ${errors.title ? 'border-red-500 dark:border-red-500' : ''}`}
+                  className={`input ${errors.title ? 'border-red-500 dark:border-red-500 focus:ring-red-400/40' : ''}`}
                   placeholder="e.g. Annual Software Subscription"
                 />
                 {errors.title && (
-                  <p className="text-red-500 text-xs mt-1">{errors.title}</p>
+                  <p className="text-red-500 text-xs mt-1.5 ml-1">{errors.title}</p>
                 )}
               </div>
-            </div>
+            </motion.div>
             
-            <div>
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+            >
               <label htmlFor="company" className="label">Company*</label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
                   <Building size={16} className="text-surface-400" />
                 </div>
                 <input
@@ -220,19 +239,23 @@ const MainFeature = () => {
                   name="company"
                   value={dealForm.company}
                   onChange={handleChange}
-                  className={`input pl-10 ${errors.company ? 'border-red-500 dark:border-red-500' : ''}`}
+                  className={`input pl-10 ${errors.company ? 'border-red-500 dark:border-red-500 focus:ring-red-400/40' : ''}`}
                   placeholder="Company name"
                 />
                 {errors.company && (
-                  <p className="text-red-500 text-xs mt-1">{errors.company}</p>
+                  <p className="text-red-500 text-xs mt-1.5 ml-1">{errors.company}</p>
                 )}
               </div>
-            </div>
+            </motion.div>
             
-            <div>
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+            >
               <label htmlFor="value" className="label">Deal Value*</label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
                   <DollarSign size={16} className="text-surface-400" />
                 </div>
                 <input
@@ -241,25 +264,31 @@ const MainFeature = () => {
                   name="value"
                   value={dealForm.value}
                   onChange={handleChange}
-                  className={`input pl-10 ${errors.value ? 'border-red-500 dark:border-red-500' : ''}`}
+                  className={`input pl-10 ${errors.value ? 'border-red-500 dark:border-red-500 focus:ring-red-400/40' : ''}`}
                   placeholder="0.00"
                 />
                 {errors.value && (
-                  <p className="text-red-500 text-xs mt-1">{errors.value}</p>
+                  <p className="text-red-500 text-xs mt-1.5 ml-1">{errors.value}</p>
                 )}
               </div>
-            </div>
+            </motion.div>
             
-            <div>
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+            >
               <label htmlFor="stage" className="label">Deal Stage*</label>
               <div className="relative stages-dropdown">
                 <button
                   type="button"
                   onClick={() => setStagesOpen(!stagesOpen)}
-                  className="input w-full text-left flex items-center justify-between"
+                  className="input w-full text-left flex items-center justify-between group"
                 >
                   <span>{dealForm.stage}</span>
-                  {stagesOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                  <span className="text-surface-400 group-hover:text-primary dark:group-hover:text-primary-light transition-colors">
+                    {stagesOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                  </span>
                 </button>
                 
                 <AnimatePresence>
@@ -268,34 +297,41 @@ const MainFeature = () => {
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -10 }}
-                      transition={{ duration: 0.15 }}
-                      className="absolute z-10 mt-1 w-full bg-white dark:bg-surface-800 border border-surface-200 dark:border-surface-700 rounded-lg shadow-lg overflow-hidden"
+                      transition={{ duration: 0.2 }}
+                      className="absolute z-10 mt-1 w-full bg-white dark:bg-surface-800 border border-surface-200 dark:border-surface-700 rounded-xl shadow-xl overflow-hidden backdrop-blur-sm"
                     >
-                      {dealStages.map((stage) => (
-                        <button
+                      {dealStages.map((stage, index) => (
+                        <motion.button
                           key={stage}
                           type="button"
+                          initial={{ opacity: 0, y: -10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: index * 0.05 }}
                           onClick={() => {
                             setDealForm({ ...dealForm, stage });
                             setStagesOpen(false);
                           }}
-                          className={`w-full text-left px-4 py-2 hover:bg-surface-100 dark:hover:bg-surface-700 transition-colors ${
+                          className={`w-full text-left px-4 py-2.5 hover:bg-surface-100 dark:hover:bg-surface-700 transition-colors ${
                             dealForm.stage === stage ? 'bg-primary/10 dark:bg-primary/20 text-primary dark:text-primary-light' : ''
                           }`}
                         >
                           {stage}
-                        </button>
+                        </motion.button>
                       ))}
                     </motion.div>
                   )}
                 </AnimatePresence>
               </div>
-            </div>
+            </motion.div>
             
-            <div>
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 }}
+            >
               <label htmlFor="closeDate" className="label">Expected Close Date*</label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
                   <Calendar size={16} className="text-surface-400" />
                 </div>
                 <input
@@ -304,21 +340,25 @@ const MainFeature = () => {
                   name="closeDate"
                   value={dealForm.closeDate}
                   onChange={handleChange}
-                  className={`input pl-10 ${errors.closeDate ? 'border-red-500 dark:border-red-500' : ''}`}
+                  className={`input pl-10 ${errors.closeDate ? 'border-red-500 dark:border-red-500 focus:ring-red-400/40' : ''}`}
                 />
                 {errors.closeDate && (
-                  <p className="text-red-500 text-xs mt-1">{errors.closeDate}</p>
+                  <p className="text-red-500 text-xs mt-1.5 ml-1">{errors.closeDate}</p>
                 )}
               </div>
-            </div>
+            </motion.div>
           </div>
           
           {/* Contact Information */}
-          <div className="space-y-4">
-            <div>
+          <div className="space-y-5">
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+            >
               <label htmlFor="contactName" className="label">Contact Name*</label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
                   <User size={16} className="text-surface-400" />
                 </div>
                 <input
@@ -327,19 +367,23 @@ const MainFeature = () => {
                   name="contactName"
                   value={dealForm.contactName}
                   onChange={handleChange}
-                  className={`input pl-10 ${errors.contactName ? 'border-red-500 dark:border-red-500' : ''}`}
+                  className={`input pl-10 ${errors.contactName ? 'border-red-500 dark:border-red-500 focus:ring-red-400/40' : ''}`}
                   placeholder="Contact person"
                 />
                 {errors.contactName && (
-                  <p className="text-red-500 text-xs mt-1">{errors.contactName}</p>
+                  <p className="text-red-500 text-xs mt-1.5 ml-1">{errors.contactName}</p>
                 )}
               </div>
-            </div>
+            </motion.div>
             
-            <div>
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+            >
               <label htmlFor="contactEmail" className="label">Contact Email*</label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
                   <Mail size={16} className="text-surface-400" />
                 </div>
                 <input
@@ -348,19 +392,23 @@ const MainFeature = () => {
                   name="contactEmail"
                   value={dealForm.contactEmail}
                   onChange={handleChange}
-                  className={`input pl-10 ${errors.contactEmail ? 'border-red-500 dark:border-red-500' : ''}`}
+                  className={`input pl-10 ${errors.contactEmail ? 'border-red-500 dark:border-red-500 focus:ring-red-400/40' : ''}`}
                   placeholder="email@example.com"
                 />
                 {errors.contactEmail && (
-                  <p className="text-red-500 text-xs mt-1">{errors.contactEmail}</p>
+                  <p className="text-red-500 text-xs mt-1.5 ml-1">{errors.contactEmail}</p>
                 )}
               </div>
-            </div>
+            </motion.div>
             
-            <div>
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+            >
               <label htmlFor="contactPhone" className="label">Contact Phone</label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
                   <Phone size={16} className="text-surface-400" />
                 </div>
                 <input
@@ -373,23 +421,32 @@ const MainFeature = () => {
                   placeholder="(123) 456-7890"
                 />
               </div>
-            </div>
+            </motion.div>
             
-            <div>
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+            >
               <label htmlFor="notes" className="label">Notes</label>
               <textarea
                 id="notes"
                 name="notes"
                 value={dealForm.notes}
                 onChange={handleChange}
-                className="input min-h-[104px]"
+                className="input min-h-[115px] resize-none"
                 placeholder="Additional details about this deal..."
               />
-            </div>
+            </motion.div>
           </div>
         </div>
         
-        <div className="mt-6 flex items-center justify-end space-x-3">
+        <motion.div 
+          className="mt-8 flex items-center justify-end space-x-3"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.6 }}
+        >
           <button
             type="button"
             className="btn btn-outline"
@@ -411,10 +468,12 @@ const MainFeature = () => {
             Cancel
           </button>
           
-          <button
+          <motion.button
             type="submit"
             disabled={isSubmitting}
-            className="btn btn-primary relative"
+            className="btn btn-primary relative overflow-hidden"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
           >
             {isSubmitting ? (
               <span className="flex items-center">
@@ -426,14 +485,14 @@ const MainFeature = () => {
               </span>
             ) : (
               <span className="flex items-center">
-                <Check size={18} className="mr-1" />
+                <Check size={18} className="mr-1.5" />
                 Create Deal
               </span>
             )}
-          </button>
-        </div>
+          </motion.button>
+        </motion.div>
       </form>
-    </div>
+    </motion.div>
   );
 };
 

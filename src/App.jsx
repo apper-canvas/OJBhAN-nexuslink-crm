@@ -43,7 +43,7 @@ function App() {
   ];
 
   return (
-    <div className="flex h-screen overflow-hidden">
+    <div className="flex h-screen overflow-hidden bg-surface-50 dark:bg-surface-900">
       {/* Sidebar for desktop */}
       <AnimatePresence>
         {sidebarOpen && (
@@ -52,46 +52,61 @@ function App() {
             animate={{ x: 0 }}
             exit={{ x: -280 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="hidden md:flex flex-col w-64 bg-white dark:bg-surface-800 border-r border-surface-200 dark:border-surface-700"
+            className="hidden md:flex flex-col w-64 bg-white/90 dark:bg-surface-800/90 backdrop-blur-sm border-r border-surface-200/50 dark:border-surface-700/50 shadow-md dark:shadow-none"
           >
-            <div className="p-4 border-b border-surface-200 dark:border-surface-700">
-              <div className="flex items-center space-x-2">
-                <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
+            <div className="p-5 border-b border-surface-200/70 dark:border-surface-700/70">
+              <div className="flex items-center space-x-3">
+                <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-primary via-primary-dark to-secondary flex items-center justify-center shadow-md">
                   <span className="text-white font-bold text-lg">N</span>
                 </div>
-                <h1 className="text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                <h1 className="text-xl font-bold text-gradient">
                   NexusLink
                 </h1>
               </div>
             </div>
             
-            <nav className="flex-1 p-4 space-y-1 overflow-y-auto scrollbar-hide">
-              {navItems.map((item) => (
-                <a
+            <nav className="flex-1 p-4 pt-6 space-y-1.5 overflow-y-auto scrollbar-hide">
+              {navItems.map((item, index) => (
+                <motion.a
                   key={item.name}
                   href={item.path}
-                  className="flex items-center space-x-3 px-3 py-2.5 rounded-lg text-surface-700 dark:text-surface-300 hover:bg-surface-100 dark:hover:bg-surface-700 group transition-all duration-200"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ 
+                    duration: 0.3,
+                    delay: index * 0.05,
+                    ease: "easeOut"
+                  }}
+                  className="flex items-center space-x-3 px-4 py-3 rounded-xl text-surface-700 dark:text-surface-300 hover:bg-surface-100 dark:hover:bg-surface-700/70 group transition-all duration-200 hover:shadow-sm"
+                  whileHover={{ 
+                    scale: 1.02,
+                    transition: { duration: 0.2 }
+                  }}
+                  whileTap={{ scale: 0.98 }}
                 >
                   <span className="text-surface-500 dark:text-surface-400 group-hover:text-primary dark:group-hover:text-primary-light transition-colors duration-200">
                     {item.icon}
                   </span>
                   <span className="font-medium">{item.name}</span>
-                </a>
+                </motion.a>
               ))}
             </nav>
             
-            <div className="p-4 border-t border-surface-200 dark:border-surface-700">
+            <div className="p-4 mx-3 mb-4 rounded-xl bg-surface-100/70 dark:bg-surface-700/50 backdrop-blur-sm border border-surface-200/50 dark:border-surface-600/30">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
-                  <div className="h-9 w-9 rounded-full bg-surface-200 dark:bg-surface-700 flex items-center justify-center">
-                    <User size={18} className="text-surface-500 dark:text-surface-400" />
+                  <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-surface-200 to-surface-300 dark:from-surface-600 dark:to-surface-700 flex items-center justify-center shadow-sm">
+                    <User size={18} className="text-surface-600 dark:text-surface-300" />
                   </div>
                   <div>
                     <p className="text-sm font-medium">Alex Morgan</p>
                     <p className="text-xs text-surface-500 dark:text-surface-400">Sales Manager</p>
                   </div>
                 </div>
-                <button className="p-1.5 rounded-lg hover:bg-surface-200 dark:hover:bg-surface-700 text-surface-500 dark:text-surface-400">
+                <button 
+                  className="p-2 rounded-lg hover:bg-surface-200/80 dark:hover:bg-surface-600/80 text-surface-500 dark:text-surface-400 transition-colors duration-200"
+                  aria-label="Log out"
+                >
                   <LogOut size={18} />
                 </button>
               </div>
@@ -109,7 +124,7 @@ function App() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="fixed inset-0 bg-black/50 z-40 md:hidden"
+              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 md:hidden"
               onClick={() => setMobileMenuOpen(false)}
             />
             
@@ -118,53 +133,64 @@ function App() {
               animate={{ x: 0 }}
               exit={{ x: "-100%" }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="fixed top-0 left-0 bottom-0 w-64 bg-white dark:bg-surface-800 z-50 md:hidden"
+              className="fixed top-0 left-0 bottom-0 w-72 bg-white/95 dark:bg-surface-800/95 backdrop-blur-md z-50 md:hidden shadow-xl"
             >
-              <div className="p-4 border-b border-surface-200 dark:border-surface-700 flex items-center justify-between">
-                <div className="flex items-center space-x-2">
-                  <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
+              <div className="p-5 border-b border-surface-200/70 dark:border-surface-700/70 flex items-center justify-between">
+                <div className="flex items-center space-x-3">
+                  <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-primary via-primary-dark to-secondary flex items-center justify-center shadow-md">
                     <span className="text-white font-bold text-lg">N</span>
                   </div>
-                  <h1 className="text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                  <h1 className="text-xl font-bold text-gradient">
                     NexusLink
                   </h1>
                 </div>
                 <button 
                   onClick={() => setMobileMenuOpen(false)}
-                  className="p-1.5 rounded-lg hover:bg-surface-200 dark:hover:bg-surface-700"
+                  className="p-2 rounded-lg hover:bg-surface-200/80 dark:hover:bg-surface-700/80 transition-colors duration-200"
+                  aria-label="Close menu"
                 >
                   <X size={20} className="text-surface-500 dark:text-surface-400" />
                 </button>
               </div>
               
-              <nav className="p-4 space-y-1">
-                {navItems.map((item) => (
-                  <a
+              <nav className="p-4 pt-6 space-y-1.5">
+                {navItems.map((item, index) => (
+                  <motion.a
                     key={item.name}
                     href={item.path}
-                    className="flex items-center space-x-3 px-3 py-2.5 rounded-lg text-surface-700 dark:text-surface-300 hover:bg-surface-100 dark:hover:bg-surface-700 group transition-all duration-200"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ 
+                      duration: 0.3,
+                      delay: index * 0.05,
+                      ease: "easeOut"
+                    }}
+                    className="flex items-center space-x-3 px-4 py-3 rounded-xl text-surface-700 dark:text-surface-300 hover:bg-surface-100 dark:hover:bg-surface-700/70 group transition-all duration-200"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     <span className="text-surface-500 dark:text-surface-400 group-hover:text-primary dark:group-hover:text-primary-light transition-colors duration-200">
                       {item.icon}
                     </span>
                     <span className="font-medium">{item.name}</span>
-                  </a>
+                  </motion.a>
                 ))}
               </nav>
               
-              <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-surface-200 dark:border-surface-700">
+              <div className="absolute bottom-0 left-0 right-0 p-4 m-4 rounded-xl bg-surface-100/70 dark:bg-surface-700/50 backdrop-blur-sm border border-surface-200/50 dark:border-surface-600/30">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">
-                    <div className="h-9 w-9 rounded-full bg-surface-200 dark:bg-surface-700 flex items-center justify-center">
-                      <User size={18} className="text-surface-500 dark:text-surface-400" />
+                    <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-surface-200 to-surface-300 dark:from-surface-600 dark:to-surface-700 flex items-center justify-center shadow-sm">
+                      <User size={18} className="text-surface-600 dark:text-surface-300" />
                     </div>
                     <div>
                       <p className="text-sm font-medium">Alex Morgan</p>
                       <p className="text-xs text-surface-500 dark:text-surface-400">Sales Manager</p>
                     </div>
                   </div>
-                  <button className="p-1.5 rounded-lg hover:bg-surface-200 dark:hover:bg-surface-700 text-surface-500 dark:text-surface-400">
+                  <button 
+                    className="p-2 rounded-lg hover:bg-surface-200/80 dark:hover:bg-surface-600/80 text-surface-500 dark:text-surface-400 transition-colors duration-200"
+                    aria-label="Log out"
+                  >
                     <LogOut size={18} />
                   </button>
                 </div>
@@ -177,30 +203,52 @@ function App() {
       {/* Main content */}
       <div className="flex flex-col flex-1 overflow-hidden">
         {/* Header */}
-        <header className="h-16 bg-white dark:bg-surface-800 border-b border-surface-200 dark:border-surface-700 flex items-center justify-between px-4">
+        <header className="h-16 bg-white/90 dark:bg-surface-800/90 backdrop-blur-sm border-b border-surface-200/50 dark:border-surface-700/50 flex items-center justify-between px-4 shadow-sm dark:shadow-none">
           <div className="flex items-center space-x-3">
             <button 
               onClick={() => setSidebarOpen(!sidebarOpen)}
-              className="p-1.5 rounded-lg hover:bg-surface-200 dark:hover:bg-surface-700 hidden md:block"
+              className="p-2 rounded-lg hover:bg-surface-100 dark:hover:bg-surface-700 hidden md:block transition-colors duration-200"
+              aria-label="Toggle sidebar"
             >
               <Menu size={20} className="text-surface-500 dark:text-surface-400" />
             </button>
             <button 
               onClick={() => setMobileMenuOpen(true)}
-              className="p-1.5 rounded-lg hover:bg-surface-200 dark:hover:bg-surface-700 md:hidden"
+              className="p-2 rounded-lg hover:bg-surface-100 dark:hover:bg-surface-700 md:hidden transition-colors duration-200"
+              aria-label="Open menu"
             >
               <Menu size={20} className="text-surface-500 dark:text-surface-400" />
             </button>
-            <h2 className="text-lg font-semibold md:hidden">NexusLink</h2>
+            <motion.h2 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+              className="text-lg font-semibold md:hidden text-gradient"
+            >
+              NexusLink
+            </motion.h2>
           </div>
           
           <div className="flex items-center space-x-3">
-            <button 
+            <motion.button 
               onClick={toggleDarkMode}
-              className="p-1.5 rounded-lg hover:bg-surface-200 dark:hover:bg-surface-700 text-surface-500 dark:text-surface-400"
+              className="p-2 rounded-lg bg-surface-100 dark:bg-surface-700 text-surface-600 dark:text-surface-300 transition-all duration-300 hover:shadow-md"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              aria-label="Toggle dark mode"
             >
-              {darkMode ? <Sun size={20} /> : <Moon size={20} />}
-            </button>
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.div
+                  key={darkMode ? 'dark' : 'light'}
+                  initial={{ y: -20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: 20, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  {darkMode ? <Sun size={20} /> : <Moon size={20} />}
+                </motion.div>
+              </AnimatePresence>
+            </motion.button>
           </div>
         </header>
 
